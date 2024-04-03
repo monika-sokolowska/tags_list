@@ -6,6 +6,10 @@
     width: 100%;
     margin: 2rem;
   }
+
+  .label {
+    padding-right: 1rem;
+  }
   
   .list {
     display: flex;
@@ -19,7 +23,7 @@
     background: var(--surface-card);
     padding: 2rem;
     border-radius: 10px;
-    height: 80%;
+    height: 73%;
     width: 100%;
   }
   

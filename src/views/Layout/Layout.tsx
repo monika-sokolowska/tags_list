@@ -1,10 +1,11 @@
 import { ScrollPanel } from 'primereact/scrollpanel'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { DataTable } from 'primereact/datatable'
+import {
+    DataTable,
+} from 'primereact/datatable'
 import { Column } from 'primereact/column'
-import { Button } from 'primereact/button'
-import { InputText } from 'primereact/inputtext'
+import { Toast } from 'primereact/toast'
 
 import './Layout.css'
 import {
@@ -15,18 +16,24 @@ import {
 const Layout = () => {
     const [tags, setTags] = useState([])
     const [loading, setLoading] = useState(false)
-
-    const [globalFilterValue, setGlobalFilterValue] = useState('')
-
-    const [filters, setFilters] = useState({})
     const [rows, setRows] = useState<number>(5)
 
-    const onGlobalFilterChange = () => {}
+    const toast = useRef<Toast>(null)
+
+    const show = () => {
+        if (toast?.current) {
+            toast.current.show({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Loading tags list failed',
+            })
+        }
+    }
 
     const renderHeader = () => {
         return (
-            <div className='header'>
-                <label htmlFor="integeronly" className="font-bold block mb-2">
+            <div className="header">
+                <label htmlFor="integeronly" className="label">
                     Rows per page
                 </label>
                 <InputNumber
@@ -35,6 +42,9 @@ const Layout = () => {
                     onValueChange={(e: InputNumberValueChangeEvent) => {
                         if (e.value) setRows(e.value)
                     }}
+                    showButtons
+                    min={5}
+                    max={100}
                 />
             </div>
         )
@@ -43,6 +53,11 @@ const Layout = () => {
     const header = renderHeader()
 
     useEffect(() => {
+        if (tags) setLoading(false)
+    }, [tags])
+
+    useEffect(() => {
+        setLoading(true)
         const fetchTags = async () => {
             try {
                 const response = await axios.get(
@@ -50,7 +65,7 @@ const Layout = () => {
                 )
                 setTags(response.data.items)
             } catch (error) {
-                console.error('Error fetching tags:', error)
+                show()
             }
         }
 
@@ -59,6 +74,7 @@ const Layout = () => {
 
     return (
         <div className="layout">
+            <Toast ref={toast} position="top-center" />
             <div className="list">
                 <div className="card">
                     <ScrollPanel style={{ width: '100%', height: '100%' }}>
@@ -66,21 +82,24 @@ const Layout = () => {
                             value={tags}
                             paginator
                             showGridlines
+                            stripedRows
+                            selectionMode="single"
                             rows={rows}
-                            loading={loading}
                             dataKey="id"
                             header={header}
-                            emptyMessage="No customers found."
-                        >
+                            loading={loading}
+                            emptyMessage="No customers found.">
                             <Column
                                 field="name"
                                 header="Name"
-                                style={{ minWidth: '12rem' }}
+                                sortable
+                                style={{ minWidth: '12rem', height: '3rem' }}
                             />
                             <Column
                                 field="count"
                                 header="Count"
-                                style={{ minWidth: '12rem' }}
+                                sortable
+                                style={{ minWidth: '12rem', height: '3rem' }}
                             />
                         </DataTable>
                     </ScrollPanel>

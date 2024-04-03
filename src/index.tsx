@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { PrimeReactProvider } from "primereact/api";
 
 import "primereact/resources/primereact.css";
-import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
+import "primereact/resources/themes/soho-light/theme.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
