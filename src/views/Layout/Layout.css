@@ -1,0 +1,25 @@
+.layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin: 2rem;
+  }
+  
+  .list {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 60%;
+  }
+  
+  .card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    height: 80%;
+    width: 100%;
+  }
+  
