@@ -49,9 +49,7 @@ const Layout = () => {
             </div>
         )
     }
-
-    const header = renderHeader()
-
+    
     useEffect(() => {
         if (tags) setLoading(false)
     }, [tags])
@@ -86,7 +84,7 @@ const Layout = () => {
                             selectionMode="single"
                             rows={rows}
                             dataKey="id"
-                            header={header}
+                            header={renderHeader()}
                             loading={loading}
                             emptyMessage="No customers found.">
                             <Column
