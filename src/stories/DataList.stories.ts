@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import DataList from "./DataList";
-import { boolean } from "yargs";
 
 const meta = {
   title: "Example/DataList",
@@ -16,8 +15,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Regular: Story = {
+export const WithHeader: Story = {
   args: {
     isHeader: true,
+  },
+};
+
+export const WithoutHeader: Story = {
+  args: {
+    isHeader: false,
   },
 };
