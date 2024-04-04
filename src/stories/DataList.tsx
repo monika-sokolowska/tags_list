@@ -54,7 +54,7 @@ const DataList = ({ isHeader }: DataListProps) => {
       selectionMode="single"
       rows={rows}
       dataKey="id"
-      header={renderHeader()}
+      header={isHeader ? renderHeader(): null}
       loading={loading}
       emptyMessage="No customers found."
     >
