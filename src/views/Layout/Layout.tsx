@@ -28,16 +28,16 @@ const Layout = () => {
 
 
   return (
+    <ScrollPanel style={{ width: "100%", height: "100%" }}>
     <div className="layout">
       <Toast ref={toast} position="top-center" />
       <div className="list">
         <div className="card">
-          <ScrollPanel style={{ width: "100%", height: "100%" }}>
             <DataList tags={data} loading={loading}/>
-          </ScrollPanel>
         </div>
       </div>
     </div>
+    </ScrollPanel>
   );
 };
 
